@@ -1,4 +1,4 @@
-import { IsEnum, IsString, MinLength } from 'class-validator';
+import { IsBoolean, IsEnum, IsOptional, IsString, MinLength } from 'class-validator';
 
 import { TipoVehiculo } from '../../common/enums/tipo-vehiculo.enum';
 
@@ -9,4 +9,8 @@ export class CreateVehiculoDto {
 
   @IsEnum(TipoVehiculo)
   tipo: TipoVehiculo;
+
+  @IsOptional()
+  @IsBoolean()
+  activo?: boolean;
 }

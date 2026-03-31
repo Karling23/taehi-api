@@ -1,4 +1,4 @@
-import {
+ï»¿import {
   ConflictException,
   Injectable,
   NotFoundException,
@@ -27,12 +27,13 @@ export class VehiculosService {
     const existing = await this.vehiculosRepository.findOne({ where: { codigo } });
 
     if (existing) {
-      throw new ConflictException('Ya existe un vehículo con ese código');
+      throw new ConflictException('Ya existe un vehÃ­culo con ese cÃ³digo');
     }
 
     const vehiculo = this.vehiculosRepository.create({
       codigo,
       tipo: dto.tipo,
+      activo: dto.activo ?? true,
     });
 
     return this.vehiculosRepository.save(vehiculo);
@@ -49,7 +50,7 @@ export class VehiculosService {
   async findById(id: string) {
     const vehiculo = await this.vehiculosRepository.findOne({ where: { id } });
     if (!vehiculo) {
-      throw new NotFoundException('Vehículo no encontrado');
+      throw new NotFoundException('VehÃ­culo no encontrado');
     }
     return vehiculo;
   }
@@ -61,7 +62,7 @@ export class VehiculosService {
       const codigo = dto.codigo.toUpperCase().trim();
       const existing = await this.vehiculosRepository.findOne({ where: { codigo } });
       if (existing && existing.id !== id) {
-        throw new ConflictException('Ya existe un vehículo con ese código');
+        throw new ConflictException('Ya existe un vehÃ­culo con ese cÃ³digo');
       }
       vehiculo.codigo = codigo;
     }
@@ -82,3 +83,4 @@ export class VehiculosService {
     await this.vehiculosRepository.remove(vehiculo);
   }
 }
+
